@@ -914,12 +914,14 @@ char* sciToStr(const ScientificNotation* sci) {
 
     switch (sci->type) {
     case I32:
-    case I64:
+    case I64: {
         char* str = malloc((fracLen + 1) * sizeof(char));
         *str = '\0';
         snprintf(str, fracLen + 1, "%lld", sci->fraction);
         return str;
-    case F64:
+    }
+    case F64: {
+        char* str = malloc((fracLen + 1) * sizeof(char));
         // Convert digits to string buffer
         char* cache = malloc((sci->fractionLen + 1) * sizeof(char));
         *cache = '\0';
@@ -979,6 +981,7 @@ char* sciToStr(const ScientificNotation* sci) {
         // printf("%d %d %s\n", exp, valueLen, cache);
         free(cache);
         return str;
+    }
     case CH_NUM_ERROR:
         return NULL;
     }
